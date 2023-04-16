@@ -31,8 +31,14 @@ export default function BurgerMenu() {
     })
   };
 
-  function handleClick() {
-    setActiveMenu(!activeMenu);
+  function handleClick(section) {
+    if (section) {
+      const item = document.getElementById(`${section}`);
+      setActiveMenu(!activeMenu);
+      item.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
   }
 
   const menu = (
@@ -42,12 +48,15 @@ export default function BurgerMenu() {
       >
         <div className='h-[100svh] flex justify-center items-center'>
           <ul className='w-full'>
-            <li className="menu-item "><a onClick={handleClick}>Carrera de Ingenieria de<br/> Software</a></li>
-            <li className="menu-item" href="#nuestro-equipo"><a onClick={handleClick}>Docentes</a></li>
-            <li className="menu-item"><a onClick={handleClick}>Laboratorio Bigatic</a></li>
-            <li className="menu-item"><a onClick={handleClick}>Semillero Laboratorio Bigatic</a></li>
-            <li className="menu-item"><a onClick={handleClick}>Eventos</a></li>
-            <li className="menu-item"><a onClick={handleClick}>Contactanos</a></li>
+            <li className="menu-item "><a onClick={() => handleClick('header')}>Carrera de Ingenieria de<br/> Software</a></li>
+
+            <li className="menu-item"><a onClick={() => handleClick('equipo')}>Docentes</a></li>
+
+            {/* <li className="menu-item"><a onClick={() => handleClick('lab')}>Laboratorio Bigatic</a></li> */}
+            
+            <li className="menu-item"><a onClick={() => handleClick('semillero')}>Semillero Laboratorio Bigatic</a></li>
+            <li className="menu-item"><a onClick={() => handleClick('eventos')}>Eventos</a></li>
+            <li className="menu-item"><a onClick={() => handleClick('contacto')}>Contactanos</a></li>
           </ul>
         </div>
     </motion.nav>
@@ -62,7 +71,7 @@ export default function BurgerMenu() {
       variants={sidebar}
       ref={containerRef}
     >
-      <motion.a className='absolute top-16 right-[2rem] z-10' onClick={handleClick}>
+      <motion.a className='absolute top-16 right-[2rem] z-10' onClick={() => {setActiveMenu(!activeMenu)}}>
         <motion.img className='rounded-full float-right' src="/bar-menu.svg" alt="Menu"
         />
       </motion.a>

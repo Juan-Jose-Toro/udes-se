@@ -1,15 +1,15 @@
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import BurgerMenu from '@/components/BurgerMenu';
 import ProfileGraph from '@/components/ProfileGraph';
 import CapacitacionesPrevias from '@/components/CapacitacionesPrevias';
 
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <div className='container mx-auto pt-[3rem] px-[2rem]'>
+    <div id="header" className='container mx-auto pt-[3rem] px-[2rem]'>
       <header className='flex justify-between pb-[3rem]'>
         <img className='relative' src="/sm-logo.svg" alt="Logo"/>
         <BurgerMenu/>
@@ -22,13 +22,15 @@ export default function Home() {
         </header>
 
         {/* Nuestro Equipo */}
-        <section id="nuestro-equipo">
-          <h1 className='pb-[3rem]'>Nuestro Equipo</h1>
+        <section id="equipo">
+          <h1 
+            className='pb-[3rem]'
+          >Nuestro Equipo</h1>
           <ProfileGraph/>
         </section>
 
         {/* Semillero de Investigacion */}
-        <section>
+        <section id="semillero">
 
           <h1 className='pb-[1.5rem]'>Semillero de Investigacion</h1>
           <p className='pb-[2rem]'>Cras sed bibendum diam. Nunc dictum eros a dolor lobortis faucibus. Nunc aliquet lorem quis orci aliquet condimentum. Curabitur eget arcu nulla. In auctor tempus enim, eget tristique odio porta a. Quisque elementum pellentesque enim et pharetra. Integer et metus eu sem commodo facilisis et a sem.</p>
@@ -85,10 +87,12 @@ export default function Home() {
         </section>
         
         {/* Eventos */}
-        <section>
+        <section id="eventos">
           <h1>Eventos</h1>
         </section>
-        <section>
+
+        {/* Footer / Contacto */}
+        <section id="contacto">
           Testing
         </section>
       </main>
