@@ -22,7 +22,7 @@ export default function Home() {
         </header>
 
         {/* Nuestro Equipo */}
-        <section>
+        <section id="nuestro-equipo">
           <h1 className='pb-[3rem]'>Nuestro Equipo</h1>
           <ProfileGraph/>
         </section>

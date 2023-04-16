@@ -22,7 +22,7 @@
 
 @layer components {
   .menu-item {
-    @apply text-center text-xl font-black py-[2rem] text-black
+    @apply text-center text-xl font-black py-[2rem] text-white
   }
 
   .project-section-item {

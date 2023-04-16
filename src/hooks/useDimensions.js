@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 
 export const useDimensions = ref => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState({});
 
   useEffect(() => {
     function handleResize() {
-      console.log('here');
       setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: ref.current.offsetWidth,
+        height: ref.current.offsetHeight
       });
-      
-      // dimensions.current.width = ref.current?.offsetWidth;
-      // dimensions.current.height = ref.current?.offsetHeight;
     }
-
-    window.addEventListener('rezise', handleResize);
+    
     handleResize();
+    window.addEventListener('resize', handleResize);
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   return dimensions;
