@@ -8,7 +8,11 @@
   }
 
   h2 {
-    @apply text-[1.5rem] leading-[38.73px] lg:text-[2rem]
+    @apply text-[1.5rem] leading-[32px] lg:text-[2rem]
+  }
+
+  h3 {
+    @apply text-lg font-bold
   }
 
   section {
@@ -19,5 +23,9 @@
 @layer components {
   .menu-item {
     @apply text-center text-xl font-black py-[2rem] text-black
+  }
+
+  .project-section-item {
+    @apply p-[1rem] bg-black text-white mb-[0.5rem] rounded-md
   }
 }
