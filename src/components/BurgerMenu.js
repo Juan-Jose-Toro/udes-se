@@ -3,11 +3,12 @@ import { useDimensions } from '../hooks/useDimensions';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 
-export default function BurgerMenu() {
+export default function BurgerMenu(props) {
 
+  const { activeSection, arrRef } = props;
   const [activeMenu, setActiveMenu] = useState(false);
   const containerRef = useRef(null);
-  const {width, height} = useDimensions(containerRef);
+  const { width, height } = useDimensions(containerRef);
 
   // refactor with a ref to the circle 
   const sidebar = {
@@ -31,15 +32,21 @@ export default function BurgerMenu() {
     })
   };
 
-  function handleClick(section) {
-    if (section) {
-      const item = document.getElementById(`${section}`);
-      setActiveMenu(!activeMenu);
-      item.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
-  }
+  const sections = ['Carrera de Ingenieria de Software','Docentes','Semillero Laboratorio Bigatic', 'Eventos', 'Contactanos'].map((section, i) => {
+
+    return (
+    <li
+      className='menu-item'
+      key={nanoid()}
+    >
+      <a
+        className={(activeSection == i ? 'text-gray-400' : 'text-white')}
+        onClick={() => handleClick(i)}>
+        {section}
+      </a>
+    </li>
+    );
+    });
 
   const menu = (
     <motion.nav
@@ -48,23 +55,23 @@ export default function BurgerMenu() {
       >
         <div className='h-[100svh] flex justify-center items-center'>
           <ul className='w-full'>
-            <li className="menu-item "><a onClick={() => handleClick('header')}>Carrera de Ingenieria de<br/> Software</a></li>
-
-            <li className="menu-item"><a onClick={() => handleClick('equipo')}>Docentes</a></li>
-
-            {/* <li className="menu-item"><a onClick={() => handleClick('lab')}>Laboratorio Bigatic</a></li> */}
-            
-            <li className="menu-item"><a onClick={() => handleClick('semillero')}>Semillero Laboratorio Bigatic</a></li>
-            <li className="menu-item"><a onClick={() => handleClick('eventos')}>Eventos</a></li>
-            <li className="menu-item"><a onClick={() => handleClick('contacto')}>Contactanos</a></li>
+            {sections}
           </ul>
         </div>
     </motion.nav>
   );
 
+  function handleClick(section) {
+    const content = arrRef[section].current;
+    setActiveMenu(!activeMenu);
+    content.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
   return(
     <motion.div
-      className='fixed top-0 right-0 w-full h-full bg-black'
+      className='fixed top-0 right-0 w-full h-full bg-black z-10'
       initial={{opacity: 0}}
       animate={activeMenu ? "open" : "closed"}
       custom={{height, width}}

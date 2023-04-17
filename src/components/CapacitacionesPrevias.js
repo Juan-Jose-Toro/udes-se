@@ -4,7 +4,6 @@ import { nanoid } from 'nanoid';
 import Image from 'next/image';
 
 export default function CapacitacionesPrevias() {
-
   const [isMenu, setIsMenu] = useState(true);
   const [activeItem, setActiveItem] = useState(0);
 
@@ -28,7 +27,7 @@ export default function CapacitacionesPrevias() {
       <a 
         className={'border-bottom flex justify-between py-[2rem] border-b-2 border-primary-gray' + 
         (activeItem == 0 ? " text-black" : " text-primary-gray")}
-        onClick={() => {setIsMenu(false); setActiveItem(0)}}
+        onClick={() => {setIsMenu(false); setActiveItem(0); console.log("clicked")}}
       >
         <h2 className='font-bold'>01</h2>
         <h2 className='font-bold w-[75%]'>Introducción a control de versiones con Git</h2>

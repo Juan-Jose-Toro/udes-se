@@ -1,18 +1,29 @@
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import BurgerMenu from '@/components/BurgerMenu';
 import ProfileGraph from '@/components/ProfileGraph';
 import CapacitacionesPrevias from '@/components/CapacitacionesPrevias';
+import Carousel from '../components/Carousel';
+import { useInView } from '../hooks/useInView';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const pageContainer = useRef(null);
+
+  const heroRef = useRef(null);
+  const equipoRef = useRef(null);
+  const semilleroRef = useRef(null);
+  const eventosRef = useRef(null);
+  const contactoRef = useRef(null);
+
+  const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
+
   return (
-    <div id="header" className='container mx-auto pt-[3rem] px-[2rem]'>
-      <header className='flex justify-between pb-[3rem]'>
+    <div ref={pageContainer} className='container mx-auto pt-[3rem] px-[2rem]'>
+      <header ref={heroRef} className='flex justify-between pb-[3rem]'>
         <img className='relative' src="/sm-logo.svg" alt="Logo"/>
-        <BurgerMenu/>
+        <BurgerMenu activeSection={activeSection} arrRef={[heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]}/>
       </header>
       <main>
         {/* Hero */}
@@ -22,7 +33,7 @@ export default function Home() {
         </header>
 
         {/* Nuestro Equipo */}
-        <section id="equipo">
+        <section ref={equipoRef}>
           <h1 
             className='pb-[3rem]'
           >Nuestro Equipo</h1>
@@ -30,7 +41,7 @@ export default function Home() {
         </section>
 
         {/* Semillero de Investigacion */}
-        <section id="semillero">
+        <section ref={semilleroRef}>
 
           <h1 className='pb-[1.5rem]'>Semillero de Investigacion</h1>
           <p className='pb-[2rem]'>Cras sed bibendum diam. Nunc dictum eros a dolor lobortis faucibus. Nunc aliquet lorem quis orci aliquet condimentum. Curabitur eget arcu nulla. In auctor tempus enim, eget tristique odio porta a. Quisque elementum pellentesque enim et pharetra. Integer et metus eu sem commodo facilisis et a sem.</p>
@@ -87,12 +98,13 @@ export default function Home() {
         </section>
         
         {/* Eventos */}
-        <section id="eventos">
+        <section ref={eventosRef}>
           <h1>Eventos</h1>
+          <Carousel/>
         </section>
 
         {/* Footer / Contacto */}
-        <section id="contacto">
+        <section ref={contactoRef}>
           Testing
         </section>
       </main>
