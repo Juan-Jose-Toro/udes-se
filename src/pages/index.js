@@ -19,7 +19,7 @@ export default function Home() {
 
   const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
 
-  return (
+  return (<>
     <div ref={pageContainer} className='container mx-auto pt-[3rem] px-[2rem]'>
       <header ref={heroRef} className='flex justify-between pb-[3rem]'>
         <img className='relative' src="/sm-logo.svg" alt="Logo"/>
@@ -96,18 +96,18 @@ export default function Home() {
           <h1>Capacitaciones Previas</h1>
           <CapacitacionesPrevias/>
         </section>
-        
-        {/* Eventos */}
-        <section ref={eventosRef}>
-          <h1>Eventos</h1>
-          <Carousel/>
-        </section>
-
-        {/* Footer / Contacto */}
-        <section ref={contactoRef}>
-          Testing
-        </section>
       </main>
+
+      <h1 ref={eventosRef}>Eventos</h1>
    </div>
-  )
+    {/* Eventos */}
+    <section>
+      <Carousel/>
+    </section>
+
+    {/* Footer / Contacto */}
+    <footer className='px-[2rem] bg-black rounded-t-[2rem]' ref={contactoRef}>
+      <h1 className='text-white pt-[4rem] pb-[20rem] text-center'>Contactanos</h1>
+    </footer>
+  </>)
 }

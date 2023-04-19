@@ -5,13 +5,13 @@ import { nanoid } from 'nanoid';
 
 export default function BurgerMenu(props) {
 
-  const { activeSection, arrRef } = props;
-  const [activeMenu, setActiveMenu] = useState(false);
   const containerRef = useRef(null);
+  const { activeSection, arrRef } = props;
+  const [ activeMenu, setActiveMenu ] = useState(false);
   const { width, height } = useDimensions(containerRef);
 
   // refactor with a ref to the circle 
-  const sidebar = {
+  const sidebarVariants = {
     open: ({height, width}) => ({
       clipPath: `circle(${height * 2}px at ${width - 54}px 86px)`,
       opacity: 1,
@@ -33,18 +33,17 @@ export default function BurgerMenu(props) {
   };
 
   const sections = ['Carrera de Ingenieria de Software','Docentes','Semillero Laboratorio Bigatic', 'Eventos', 'Contactanos'].map((section, i) => {
-
     return (
-    <li
+    <motion.li
       className='menu-item'
       key={nanoid()}
     >
-      <a
+      <motion.a
         className={(activeSection == i ? 'text-gray-400' : 'text-white')}
         onClick={() => handleClick(i)}>
         {section}
-      </a>
-    </li>
+      </motion.a>
+    </motion.li>
     );
     });
 
@@ -53,11 +52,11 @@ export default function BurgerMenu(props) {
       className="fixed left-0 top-0 w-full h-[100lvh]"
       key={nanoid()}
       >
-        <div className='h-[100svh] flex justify-center items-center'>
-          <ul className='w-full'>
+        <motion.div className='h-[100svh] flex justify-center items-center'>
+          <motion.ul className='w-full'>
             {sections}
-          </ul>
-        </div>
+          </motion.ul>
+        </motion.div>
     </motion.nav>
   );
 
@@ -72,10 +71,10 @@ export default function BurgerMenu(props) {
   return(
     <motion.div
       className='fixed top-0 right-0 w-full h-full bg-black z-10'
-      initial={{opacity: 0}}
+      initial={false}
       animate={activeMenu ? "open" : "closed"}
       custom={{height, width}}
-      variants={sidebar}
+      variants={sidebarVariants}
       ref={containerRef}
     >
       <motion.a className='absolute top-16 right-[2rem] z-10' onClick={() => {setActiveMenu(!activeMenu)}}>
