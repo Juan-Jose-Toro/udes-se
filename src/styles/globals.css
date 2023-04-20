@@ -28,4 +28,12 @@
   .project-section-item {
     @apply p-[1rem] bg-black text-white mb-[0.5rem] rounded-md
   }
+
+  .apply-grid {
+    @apply md:text-right md:grid md:grid-cols-12 md:gap-[1.5rem]
+  }
+
+  strong {
+    @apply font-semibold
+  }
 }

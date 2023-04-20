@@ -1,19 +1,24 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useDimensions } from '../hooks/useDimensions';
+import { useCenter } from '../hooks/useCenter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 
 export default function BurgerMenu(props) {
-
+  const circleRef = useRef(null);
   const containerRef = useRef(null);
   const { activeSection, arrRef } = props;
   const [ activeMenu, setActiveMenu ] = useState(false);
-  const { width, height } = useDimensions(containerRef);
+  const { width, height } = useCenter(circleRef);
+  const [domLoaded, setDomLoaded] = useState(false);
+
+  useEffect(() => {
+    setDomLoaded(true);
+  }, []);
 
   // refactor with a ref to the circle 
   const sidebarVariants = {
     open: ({height, width}) => ({
-      clipPath: `circle(${height * 2}px at ${width - 54}px 86px)`,
+      clipPath: `circle(1500px at ${width}px ${height}px)`,
       opacity: 1,
       transition: {
         type: "spring",
@@ -22,7 +27,7 @@ export default function BurgerMenu(props) {
       }
     }),
     closed: ({height, width}) => ({
-      clipPath: `circle(23px at ${width - 54}px 86px)`,
+      clipPath: `circle(23px at ${width}px ${height}px)`,
       opacity: 1,
       transition: {
         type: "spring",
@@ -77,10 +82,12 @@ export default function BurgerMenu(props) {
       variants={sidebarVariants}
       ref={containerRef}
     >
-      <motion.a className='absolute top-16 right-[2rem] z-10' onClick={() => {setActiveMenu(!activeMenu)}}>
-        <motion.img className='rounded-full float-right' src="/bar-menu.svg" alt="Menu"
-        />
-      </motion.a>
+      <div className='container'>
+        <motion.a ref={circleRef} className='absolute top-16 right-[2rem] z-10' onClick={() => {setActiveMenu(!activeMenu)}}>
+          <motion.img className='rounded-full float-right' src="/bar-menu.svg" alt="Menu"
+          />
+        </motion.a>
+      </div>
       {menu}
     </motion.div>
   );

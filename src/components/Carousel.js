@@ -1,18 +1,18 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { motion } from 'framer-motion';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
+import { nanoid } from 'nanoid';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Carousel() {
-  // Carousel is only infinite for mobile
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    (isMobile ? { dragFree: true,  startIndex: 1, loop: true } : { dragFree: true,  startIndex: 1})
-  );
+  // Media queries match those defined in tailwind
+  const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
-  useEffect(() => {
-    if (emblaApi) console.log(emblaApi.selectedScrollSnap())
-  }, [emblaApi])
+  // Carousel is only infinite for mobile
+  const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true, startIndex: 1 });
 
   return (
     <>
@@ -20,28 +20,41 @@ export default function Carousel() {
         <div className='overflow-hidden' ref={emblaRef}>
           <ul className='flex h-[20rem] items-end'>
             <li
-              className='flex-[0_0_auto] min-w-0 h-[200px] w-[300px] mr-4 rounded-md border-2 border-black'
+              className='flex-[0_0_auto] block min-w-0 h-[200px] w-[10rem] mr-4 rounded-md border-2 border-black'
             ></li>
-            {catList.map((cat, i) => (
+            {eventList.map((name, i) => (
               <li
                 className={'flex items-end flex-[0_0_auto] min-w-0 mr-4 h-full'}
-                key={cat.id}
+                key={nanoid()}
               >
-                <motion.img
-                  // Height of image changes on hover only for non-mobile
-                  whileHover={ isMobile ? {} : {
-                    height: '100%',
-                    width: 'auto',
-                    transition: {
-                      delay: .1,
-                    }
-                  }}
-                  className={"rounded-md"  + ( i === 0 ? ' h-full w-auto' : '')}
-                  src={cat.imageUrl}
-                  alt={'Cat #' + cat.id}
-                />
+                <Link
+                  className='flex items-end flex-[0_0_auto] min-w-0 h-full' 
+                  href={`/eventos/${name}`}>
+                  <motion.img
+                    // Height of image changes on hover only for non-mobile
+                    whileHover={ isMobile ? {} : {
+                      height: '100%',
+                      width: 'auto',
+                      transition: {
+                        delay: .1,
+                      }
+                    }}
+                    src={`/${name}.png`}
+                    className={"rounded-md block object-contain" + ( i === 0 ? ' h-full w-auto' : ' w-[10rem]')}
+                    alt={'Evento brochure'}
+                  />
+                </Link>
               </li>
             ))}
+            <li
+              className='flex-[0_0_auto] block min-w-0 h-[200px] w-[10rem] mr-4 rounded-md border-2 border-black'
+            ></li>
+                        <li
+              className='flex-[0_0_auto] block min-w-0 h-[200px] w-[10rem] mr-4 rounded-md border-2 border-black'
+            ></li>
+                        <li
+              className='flex-[0_0_auto] block min-w-0 h-[200px] w-[10rem] mr-4 rounded-md border-2 border-black'
+            ></li>
           </ul>
         </div>
       </nav>
@@ -49,10 +62,4 @@ export default function Carousel() {
   );
 }
 
-const catList = [];
-for (let i = 0; i < 10; i++) {
-  catList.push({
-    id: i,
-    imageUrl: 'https://placekitten.com/250/200?image=' + i
-  });
-}
+const eventList = ['evento1', 'evento2'];

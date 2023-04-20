@@ -68,12 +68,12 @@ export default function CapacitacionesPrevias() {
       animate={{opacity: 1}}
       exit={{opacity: 0}}
     >
-      <div className='flex justify-between'>
+      <div className='flex justify-between align-middle'>
         <h2 className='py-[2rem] font-bold'>{fetchedData[activeItem].title}</h2>
-        <a className='flex align-middle'
+        <a className='flex justify-between align-middle flex-shrink-0'
           onClick={() => setIsMenu(true)}
         >
-          <img src="/arrow.svg" alt="go back arrow icon" />
+          <img className='w-4' src="/arrow.svg" alt="go back arrow icon" />
         </a>
       </div>
      

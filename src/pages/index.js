@@ -9,8 +9,8 @@ import { useInView } from '../hooks/useInView';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  
   const pageContainer = useRef(null);
-
   const heroRef = useRef(null);
   const equipoRef = useRef(null);
   const semilleroRef = useRef(null);
@@ -20,20 +20,27 @@ export default function Home() {
   const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
 
   return (<>
-    <div ref={pageContainer} className='container mx-auto pt-[3rem] px-[2rem]'>
+    <div ref={pageContainer} className='relative mx-auto pt-[3rem] px-[2rem]'>
+      {/* Logo & Menu */}
       <header ref={heroRef} className='flex justify-between pb-[3rem]'>
         <img className='relative' src="/sm-logo.svg" alt="Logo"/>
         <BurgerMenu activeSection={activeSection} arrRef={[heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]}/>
       </header>
-      <main>
+
+      <main className='md:px-[4rem]'>
         {/* Hero */}
         <header className='pb-[12rem]'>
-          <h1 className='pb-[1.5rem]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-          <p className='text-right'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis, est id tincidunt mattis, nibh lorem finibus odio, at sagittis ante libero id erat. Ut ut lectus in nisi interdum dictum ac sed tortor. Mauris eget turpis ligula. In hac habitasse platea dictumst.</p>
+          <h1 className='pb-[1.5rem]'>
+            <span className=''>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+          </h1>
+          <p className='text-right md:text-left'>
+            <span className=''>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis, est id tincidunt mattis, nibh lorem finibus odio, at sagittis ante libero id erat. Ut ut lectus in nisi interdum dictum ac sed tortor. Mauris eget turpis ligula. In hac habitasse platea dictumst.
+            </span>
+          </p>
         </header>
 
         {/* Nuestro Equipo */}
-        <section ref={equipoRef}>
+        <section id="equipo" ref={equipoRef}>
           <h1 
             className='pb-[3rem]'
           >Nuestro Equipo</h1>
@@ -44,10 +51,10 @@ export default function Home() {
         <section ref={semilleroRef}>
 
           <h1 className='pb-[1.5rem]'>Semillero de Investigacion</h1>
-          <p className='pb-[2rem]'>Cras sed bibendum diam. Nunc dictum eros a dolor lobortis faucibus. Nunc aliquet lorem quis orci aliquet condimentum. Curabitur eget arcu nulla. In auctor tempus enim, eget tristique odio porta a. Quisque elementum pellentesque enim et pharetra. Integer et metus eu sem commodo facilisis et a sem.</p>
+          <p className='pb-[2rem]'>El semillero de Investigación <strong>BiGaTic</strong>, que se enfoca a la formación de estudiantes innovadores y desarrolladores de soluciones con enfoque en pensamiento sistémico, que aportan lógica de programación para llevar a un avance sustancial a la Universidad de Santander en el tema de las nuevas tecnologías de la información y la comunidad del siglo XXI.</p>
 
           {/* Wrapper of a project stage*/}
-          <div>
+          <div className='md:grid md:grid-cols-2'>
             {/* Teoria */}
             <div className='flex flex-col px-[2.5rem] pb-[2rem]'>
               <h3 className='pb-[1rem] text-center'>Teoria</h3>
@@ -97,10 +104,10 @@ export default function Home() {
           <CapacitacionesPrevias/>
         </section>
       </main>
-
-      <h1 ref={eventosRef}>Eventos</h1>
    </div>
+   
     {/* Eventos */}
+    <h1 id='eventos' ref={eventosRef} className='px-[2rem] md:px-[4rem]'>Eventos</h1>
     <section>
       <Carousel/>
     </section>

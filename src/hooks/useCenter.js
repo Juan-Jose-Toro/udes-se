@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
-export const useDimensions = ref => {
+export const useCenter = ref => {
   const [dimensions, setDimensions] = useState({});
 
   useEffect(() => {
+    const current = ref.current;
+    
     function handleResize() {
       setDimensions({
-        width: ref.current.offsetWidth,
-        height: ref.current.offsetHeight
+        width: current.offsetLeft + current.offsetWidth / 2,
+        height: current.offsetTop +  current.offsetHeight / 2,
       });
     }
     
