@@ -9,7 +9,7 @@ export default function ProfileGraph() {
   // media queries as defined by tailwind css
   const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
   const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
-  const isDesktop = useMediaQuery({ query: '(max-width: 1536px)' });
+  const isDesktop = useMediaQuery({ query: '(max-width: 100000px)' });
 
   const [domLoaded, setDomLoaded] = useState(false);
 

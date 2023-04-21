@@ -20,10 +20,10 @@ export default function Home() {
   const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
 
   return (<>
-    <div ref={pageContainer} className='relative mx-auto pt-[3rem] px-[2rem]'>
+    <div ref={pageContainer} className='mx-auto pt-[3rem] px-[2rem]'>
       {/* Logo & Menu */}
       <header ref={heroRef} className='flex justify-between pb-[3rem]'>
-        <img className='relative' src="/sm-logo.svg" alt="Logo"/>
+        <img className='' src="/sm-logo.svg" alt="Logo"/>
         <BurgerMenu activeSection={activeSection} arrRef={[heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]}/>
       </header>
 
@@ -105,7 +105,6 @@ export default function Home() {
         </section>
       </main>
    </div>
-   
     {/* Eventos */}
     <h1 id='eventos' ref={eventosRef} className='px-[2rem] md:px-[4rem]'>Eventos</h1>
     <section>

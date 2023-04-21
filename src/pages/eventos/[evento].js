@@ -32,10 +32,11 @@ export default function Evento({ eventData }) {
     </Head>
     <div className="mx-[2rem]">
       <Link className="relative top-[2rem]" href="/#eventos" scroll={false}><img src="/arrow.svg"/></Link>
-      <Image className="mt-[5rem] mx-auto" width={152} height={152} src={image} alt={`Brochure de evento: ${name}`}/>
-      <h2 className="text-center pt-[2rem] font-bold">{name}</h2>
-      <p className="pt-[2rem]">{description}</p>
-      <div className='relative h-36 bg-red-400 rounded-md overflow-hidden my-[2rem]'>
+      <div className="md:mx-[4rem]">
+        <Image className="mt-[5rem] mx-auto" width={152} height={152} src={image} alt={`Brochure de evento: ${name}`}/>
+        <h2 className="text-center pt-[2rem] font-bold">{name}</h2>
+        <p className="pt-[2rem]">{description}</p>
+        <div className='relative h-36 bg-red-400 rounded-md overflow-hidden my-[2rem]'>
           <Image
             className='object-cover'
             fill
@@ -43,6 +44,7 @@ export default function Evento({ eventData }) {
             alt="workshop image"  
           />
         </div>
+      </div>
     </div>
   </>)
 }
