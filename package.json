@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-hook/resize-observer": "^1.2.6",
+    "@react-hooks-library/core": "^0.5.1",
     "@types/jest": "^29.5.0",
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "10.4.14",
@@ -16,8 +18,10 @@
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "framer-motion": "^10.12.2",
+    "i": "^0.3.7",
     "nanoid": "^4.0.2",
     "next": "13.3.0",
+    "npm": "^9.6.5",
     "postcss": "8.4.21",
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",

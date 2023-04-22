@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { nanoid } from 'nanoid';
 import { useMediaQuery } from 'react-responsive';
+import { useDrawLine } from '../hooks/useDrawLine';
+import LineWithItem from './LineWithItem';
+import { BreakPointHooks, breakpointsTailwind } from '@react-hooks-library/core'
+
+
+const { useGreater, useBetween, useSmaller } = BreakPointHooks(breakpointsTailwind)
 
 // this section will probably fetch some data
 export default function ProfileGraph() {
-  // media queries as defined by tailwind css
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
-  const isDesktop = useMediaQuery({ query: '(max-width: 100000px)' });
+  const containerRef = useRef(null);
+  const smaller = useSmaller('md');
+  const fn = useCallback(i => {
+    if (!smaller) return ( i < 3 ? i+1 : i );
+    else {
+      if (i == 0) return i+3;
+      if (i !== 1) return i+1;
+      if (i == 1) return 0;
+    }
+  }, [smaller]);
 
-  const [domLoaded, setDomLoaded] = useState(false);
-
-  useEffect(() => {
-    setDomLoaded(true);
-  }, []);
+  console.log(smaller);
+  console.log(fn);
+  const arrayOfCoords = [
+    ...useDrawLine(containerRef, fn),
+  ];
   
   const profilesData = [
     { name: "Bob Smith", src: "/profile-placeholder.png" },
@@ -25,65 +37,36 @@ export default function ProfileGraph() {
   ];
 
   // create each indivial profile with their name and their image
-  const profiles = profilesData.map(({ name, src }) => (
-    // here the padding is calculated as 152px-40px
-    <div key={nanoid()} className='flex flex-col items-center justify-between pb-[112px]'>
-      {/* for Image it is required to pass a string */}
-      <Link href={`/docentes/${name}`}>
-        <Image className='rounded-full' width={152} height={152} src={src} alt={`Foto de perfil de ${name}`}/>
-      </Link>
-      <p className="pt-4" alt={`Descripción de perfil de ${name}`}>{name}</p>
-    </div>
-  ));
+  const profiles = profilesData.map( ({ name, src }, i) => {
+    return (
+      // here the padding is calculated as 152px-40px
+      <div key={nanoid()} className={'flex flex-col items-center justify-between' + (i % 2 === 0 ? ' pt-[10rem]' : '')}>
+        {/* for Image it is required to pass a string */}
+        <Link href={`/docentes/${name}`}>
+          <Image className='rounded-full' width={152} height={152} src={src} alt={`Foto de perfil de ${name}`}/>
+          <p className="pt-4 text-center" alt={`Descripción de perfil de ${name}`}>{name}</p>
+        </Link>
+      </div>
+    )
+  });
 
-  const mobileTemplate = (<>
-    <div className='grid grid-cols-2'>
-      <div className=''>
-        {profiles.slice(0,Math.floor(profiles.length/2))}
-      </div>
-      <div className='pt-[152px]'>
-        {profiles.slice(Math.floor(profiles.length/2))}
-      </div>
+  return (<div className='relative'>
+    {/* svg that contains the background that renders lines in between two div circles */}
+    {arrayOfCoords.map((item) => 
+      <LineWithItem 
+        key={nanoid()} 
+        id={`line-${item.x1 + item.y2}`} 
+        x1={item.x1} y1={item.y1} 
+        x2={item.x2} y2={item.y2} 
+        stroke="black" 
+        strokeWidth="2" 
+        strokeDasharray="4"
+        width={item.width}
+        height={item.height}
+      />
+    )}
+    <div ref={containerRef} className='grid grid-cols-2 md:grid-cols-4'>
+      {profiles}
     </div>
-  </>)
-
-  const tabletTemplate = (<>
-    <div className='grid grid-cols-3'>
-      <div className=''>
-        {profiles.slice(0,Math.floor(profiles.length/3))}
-      </div>
-      <div className='pt-[152px]'>
-        {profiles.slice(Math.floor(profiles.length/3),Math.floor(profiles.length*2/3))}
-      </div>
-      <div className=''>
-        {profiles.slice(Math.floor(profiles.length*2/3))}
-      </div>
-    </div>
-  </>)
-
-  const desktopTemplate = (<>
-    <div className='grid grid-cols-4'>
-      <div className=''>
-        {profiles.slice(0,Math.floor(profiles.length/4))}
-      </div>
-      <div className='pt-[152px]'>
-        {profiles.slice(Math.floor(profiles.length/4),Math.floor(profiles.length/2))}
-      </div>
-      <div className=''>
-        {profiles.slice(Math.floor(profiles.length/2),Math.floor(profiles.length*3/4))}
-      </div>
-      <div className='pt-[152px]'>
-        {profiles.slice(Math.floor(profiles.length*3/4))}
-      </div>
-    </div>
-  </>)
-
-  return (<>
-    {
-      domLoaded && (
-      isMobile && mobileTemplate ||
-      isTablet && tabletTemplate ||
-      isDesktop && desktopTemplate )
-    }
-  </>);
+  </div>);
 }

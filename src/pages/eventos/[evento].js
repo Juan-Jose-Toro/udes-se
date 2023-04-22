@@ -30,7 +30,7 @@ export default function Evento({ eventData }) {
     <Head>
       <title>{name}</title>
     </Head>
-    <div className="mx-[2rem]">
+    <div className="mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]">
       <Link className="relative top-[2rem]" href="/#eventos" scroll={false}><img src="/arrow.svg"/></Link>
       <div className="md:mx-[4rem]">
         <Image className="mt-[5rem] mx-auto" width={152} height={152} src={image} alt={`Brochure de evento: ${name}`}/>

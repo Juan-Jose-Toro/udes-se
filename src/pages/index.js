@@ -20,7 +20,7 @@ export default function Home() {
   const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
 
   return (<>
-    <div ref={pageContainer} className='mx-auto pt-[3rem]'>
+    <div ref={pageContainer} className='mx-auto pt-[2rem]'>
       {/* Logo & Menu */}
       <header id="hero" ref={heroRef} className='flex justify-between pb-[3rem]'>
         <img className='pl-[2rem]' src="/sm-logo.svg" alt="Logo"/>
@@ -31,7 +31,7 @@ export default function Home() {
       <main className=''>
         {/* Hero */}
         <header className='pb-[12rem]'>
-          <div className='px-[2rem] md:px-[6rem] lg:px-[12rem] md:grid md:grid-cols-10'>
+          <div className='max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem] mx-auto md:grid md:grid-cols-10'>
             <h1 className='pb-[1.5rem] md:text-right md:col-start-6 md:col-end-11 lg:col-start-5'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </h1>
@@ -59,7 +59,7 @@ export default function Home() {
         </header>
         
         {/* padding wrapper */}
-        <div className='px-[2rem] md:px-[6rem] lg:px-[12rem]'>
+        <div className='mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
           {/* Nuestro Equipo */}
           <section id="equipo" ref={equipoRef}>
             <h1 

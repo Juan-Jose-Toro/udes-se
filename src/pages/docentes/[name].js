@@ -35,31 +35,35 @@ export default function Profile({ profileData }) {
     <Head>
       <title>{name}</title>
     </Head>
-    <div className="mx-[2rem]">
+    <div className="mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]">
       <Link className="relative top-[2rem]" href="/#equipo" scroll={false}><img src="/arrow.svg"/></Link>
 
       {/* Profile Quick Info */}
-      <Image className='rounded-full mt-[5rem] mx-auto'
-        width={152} height={152} src={image} alt={`Foto de perfil de ${name}`}
-      />
-      <h1 className="text-center pt-[2rem]">{name}</h1>
-      <section className="pt-[2rem]">
-        <p><strong>Contacto: </strong><span className="float-right">{contact}</span></p>
-        <p className="pt-[.5rem]"><strong>Asignaturas: </strong></p>
-        {courses.map(course => 
-          <p key={nanoid()} className="pt-[.5rem]">
-            {course}
-          </p>)
-        }
-        <p className="pt-[.5rem]"><strong>Cargo: </strong><span className="float-right">{position}</span></p>
-        <p className="pt-[.5rem]"><strong>Teléfono: </strong><span className="float-right">{phone}</span></p>
-      </section>
-      
-      {/* Description */}
-      <section>
-        <h2 className="font-semibold">Descripción</h2>
-        <p className="pt-[2rem]">{description}</p>
-      </section>
+      <div className=" ">
+        <Image className='mx-auto lg:ml-0 lg:mr-auto rounded-full mt-[5rem]'
+          width={152} height={152} src={image} alt={`Foto de perfil de ${name}`}
+        />
+      </div>
+      <div className="pt-[2rem] lg:grid lg:grid-cols-10">
+        <section className="lg:col-start-1 lg:col-end-4">
+          <h1 className="text-center lg:text-left">{name}</h1>
+          <p className="pt-[2rem]"><strong>Contacto: </strong><span className="float-right">{contact}</span></p>
+          <p className="pt-[.5rem]"><strong>Asignaturas: </strong></p>
+          {courses.map(course => 
+            <p key={nanoid()} className="pt-[.5rem]">
+              {course}
+            </p>)
+          }
+          <p className="pt-[.5rem]"><strong>Cargo: </strong><span className="float-right">{position}</span></p>
+          <p className="pt-[.5rem]"><strong>Teléfono: </strong><span className="float-right">{phone}</span></p>
+        </section>
+        
+        {/* Description */}
+        <section className="lg:col-start-5 lg:col-end-11">
+          <h2 className="font-semibold lg:text-[2rem] lg:pt-[1rem]">Descripción</h2>
+          <p className="pt-[2rem]">{description}</p>
+        </section>
+      </div>
     </div>
   </>);
 }
