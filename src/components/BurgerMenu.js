@@ -18,7 +18,7 @@ export default function BurgerMenu(props) {
   // refactor with a ref to the circle 
   const sidebarVariants = {
     open: {
-      clipPath: `circle(1500px at calc(100vw - 2rem - 20px) 5rem)`,
+      clipPath: `circle(1700px at calc(100vw - 2rem - 20px) 5rem)`,
       opacity: 1,
       transition: {
         type: "spring",

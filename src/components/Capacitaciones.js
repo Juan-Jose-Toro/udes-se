@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
@@ -6,6 +6,11 @@ import Image from 'next/image';
 export default function CapacitacionesPrevias() {
   const [isMenu, setIsMenu] = useState(true);
   const [activeItem, setActiveItem] = useState(0);
+  const menuItemRef = useRef(null);
+
+  const mouseEnter = (e) => {
+    menuItemRef.current.focus();
+  }
 
   // content can be html items instead of text
   const fetchedData = [
@@ -20,7 +25,7 @@ export default function CapacitacionesPrevias() {
       className=''
       key={nanoid()}
       transition={{ ease: "easeInOut", duration: 0.2}}
-      initial={{opacity: 0}}
+      initial={false}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
     >
@@ -35,7 +40,7 @@ export default function CapacitacionesPrevias() {
 
       <a className={'border-bottom flex justify-between py-[2rem] border-b-2 border-primary-gray' +
        (activeItem == 1 ? " text-black" : " text-primary-gray")}
-        onClick={() => {setIsMenu(false); setActiveItem(1)}} 
+        onClick={() => {setIsMenu(false); setActiveItem(1)}}
       >
         <h2 className='font-bold'>02</h2>
         <h2 className='font-bold w-[75%]'>Introducción a Docker</h2>
@@ -61,14 +66,16 @@ export default function CapacitacionesPrevias() {
 
   const menuItemTemplate = (
     <motion.div
-      className=''
+      onMouseEnter={mouseEnter}
+      ref={menuItemRef}
+      className='lg:pt-[2rem] overflow-scroll'
       key={nanoid()}
       transition={{ ease: "easeInOut", duration: 0.2}}
       initial={{opacity: 0}}
       animate={{opacity: 1}}
       exit={{opacity: 0}}
     >
-      <div className='flex justify-between align-middle'>
+      <div className='flex justify-between align-middle lg:hidden'>
         <h2 className='py-[2rem] font-bold'>{fetchedData[activeItem].title}</h2>
         <a className='flex justify-between align-middle flex-shrink-0'
           onClick={() => setIsMenu(true)}
@@ -77,7 +84,7 @@ export default function CapacitacionesPrevias() {
         </a>
       </div>
      
-      <div className='h-[500px] overflow-auto rounded-md'>
+      <div className='h-[29rem] overflow-scroll rounded-md'>
         <p>{fetchedData[activeItem].content}<br/><br/>
 
         lorem ipsum dolor sit amet, consectetur adipiscing elit.  cras sed bibendum diam. nunc dictum eros a.
@@ -94,6 +101,9 @@ export default function CapacitacionesPrevias() {
 
         <p>cras sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc aliquet lorem quis orci aliquet condimentum. lorem ipsum dolor sit amet, consectetur adipiscing elit.  sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc <br/><br/>
 
+        cras sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc aliquet lorem quis orci aliquet condimentum. lorem ipsum dolor sit amet, consectetur adipiscing elit.  sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc <br/><br/>
+        cras sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc aliquet lorem quis orci aliquet condimentum. lorem ipsum dolor sit amet, consectetur adipiscing elit.  sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc <br/><br/>
+        cras sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc aliquet lorem quis orci aliquet condimentum. lorem ipsum dolor sit amet, consectetur adipiscing elit.  sed bibendum diam. nunc dictum eros a dolor lobortis faucibus. nunc <br/><br/>
         lorem ipsum dolor sit amet, consectetur adipiscing elit.  cras sed bibendum diam. nunc dictum eros a.
         </p>
       </div>
@@ -101,10 +111,21 @@ export default function CapacitacionesPrevias() {
   );
   
   return (
-    <div className='h-[600px]'>
-      <AnimatePresence initial={false} mode="wait">
-        {isMenu ? menuTemplate : menuItemTemplate}
-      </AnimatePresence>
+    <div className='h-[32rem] overflow-hidden'>
+      <div className='lg:hidden'>
+        <AnimatePresence initial={false} mode="wait">
+          {isMenu ? menuTemplate : menuItemTemplate}
+        </AnimatePresence>
+      </div>
+      <div className='hidden lg:grid lg:grid-cols-10'>
+        {/* <AnimatePresence initial={false} mode="wait"> */}
+          <div className='lg:col-start-1 lg:col-end-7'>{menuItemTemplate}
+          </div>
+          <div className='lg:col-start-8 lg:col-end-11'>
+            {menuTemplate}
+          </div>
+        {/* </AnimatePresence> */}
+      </div>
     </div>
   );
 }

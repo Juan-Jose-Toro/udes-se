@@ -17,7 +17,6 @@ export default function ProfileGraph() {
     setDomLoaded(true);
   }, []);
   
-
   const profilesData = [
     { name: "Bob Smith", src: "/profile-placeholder.png" },
     { name: "Sofia Stone", src: "/profile-placeholder.png" },

@@ -3,12 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   h1 {
-    @apply text-[2rem] leading-[38.73px] font-black lg:text-[3rem]
+    @apply text-[2rem] leading-[38.73px] font-black lg:text-[3rem] lg:leading-[58px]
   }
 
   h2 {
-    @apply text-[1.5rem] leading-[32px] lg:text-[2rem]
+    @apply text-[1.5rem] leading-[32px] lg:leading-[36px]
   }
 
   h3 {
@@ -17,6 +21,27 @@
 
   section {
     @apply mb-[12rem]
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+    box-shadow: inset 0 0 20px 20px transparent;
+    border: solid 3px transparent;
+  }
+
+  div::-webkit-scrollbar {
+    display: none;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    box-shadow: inset 0 0 20px 20px #dcdcdc;
+    border: solid 6px transparent;
+  }
+
+  *::-webkit-scrollbar-track-piece
+  {
+    display:none;
   }
 }
 
