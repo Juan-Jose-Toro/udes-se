@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 // import { useCenter } from '../hooks/useCenter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
+import { item, container } from '../lib/animation';
 
 export default function BurgerMenu(props) {
   // const circleRef = useRef(null);
@@ -11,14 +12,17 @@ export default function BurgerMenu(props) {
   // const { width, height } = useCenter(circleRef);
   const [domLoaded, setDomLoaded] = useState(false);
 
-  useEffect(() => {
-    setDomLoaded(true);
-  }, []);
 
   // refactor with a ref to the circle 
   const sidebarVariants = {
+    show: {
+      clipPath: `circle(20px at calc(100vw - 2rem - 20px) 5rem)`,
+      y: '3%',
+      opacity: 0,
+    },
     open: {
       clipPath: `circle(1700px at calc(100vw - 2rem - 20px) 5rem)`,
+      y: '0',
       opacity: 1,
       transition: {
         type: "spring",
@@ -29,6 +33,7 @@ export default function BurgerMenu(props) {
     closed: {
       clipPath: `circle(20px at calc(100vw - 2rem - 20px) 5rem)`,
       opacity: 1,
+      y: '0',
       transition: {
         type: "spring",
         stiffness: 400,
@@ -61,10 +66,12 @@ export default function BurgerMenu(props) {
   }
 
   return (
-    <>
+    <motion.div
+      className=''
+    >
       <motion.div className='fixed top-0 left-0 w-full h-full bg-black z-10'
         onClick={() => setActiveMenu(!activeMenu)}
-        initial={false}
+        initial="show"
         animate={activeMenu ? "open" : "closed"}
         variants={sidebarVariants}
       >
@@ -80,6 +87,6 @@ export default function BurgerMenu(props) {
           </motion.div>
         </motion.nav>
       </motion.div>
-    </>
+    </motion.div>
   );
 }

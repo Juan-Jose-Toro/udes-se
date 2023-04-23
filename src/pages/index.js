@@ -5,6 +5,9 @@ import ProfileGraph from '@/components/ProfileGraph';
 import Capacitaciones from '@/components/Capacitaciones';
 import Carousel from '../components/Carousel';
 import { useInView } from '../hooks/useInView';
+import { container, item } from '../lib/animation';
+import { motion } from 'framer-motion';
+import { nanoid } from 'nanoid';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,50 +22,98 @@ export default function Home() {
 
   const activeSection = useInView([heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]);
 
+  function handleScroll(section) {
+    section.current.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
   return (<>
     <div ref={pageContainer} className='mx-auto pt-[2rem]'>
       {/* Logo & Menu */}
-      <header id="hero" ref={heroRef} className='flex justify-between pb-[3rem]'>
-        <img className='pl-[2rem]' src="/sm-logo.svg" alt="Logo"/>
+      <motion.header 
+        variants={container}
+        id="hero" ref={heroRef} className='flex justify-between pb-[3rem]'>
+        <div className='overflow-hidden'>
+          <motion.img variants={item} initial="hidden" animate="show" className='pl-[2rem]' src="/sm-logo.svg" alt="Logo"/>
+        </div>
         {/* Burger menu black dot is positioned as a fixed 2rem */}
         <BurgerMenu activeSection={activeSection} arrRef={[heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]}/>
-      </header>
+      </motion.header>
 
       <main className=''>
         {/* Hero */}
-        <header className='pb-[12rem]'>
-          <div className='max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem] mx-auto md:grid md:grid-cols-10'>
-            <h1 className='pb-[1.5rem] md:text-right md:col-start-6 md:col-end-11 lg:col-start-5'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </h1>
-            <p className='text-right md:text-left md:col-start-4 md:col-end-10 lg:col-start-6'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis, est id tincidunt mattis, nibh lorem finibus odio, at sagittis ante libero id erat. Ut ut lectus in nisi interdum dictum ac sed tortor. Mauris eget turpis ligula. In hac habitasse platea dictumst.
-            </p>
-          </div>
+        <motion.header
+          initial="hidden" animate="show" variants={container}
+          className='pb-[12rem]'>
+          <motion.div 
+            className='max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem] mx-auto md:grid md:grid-cols-10'>
+            <motion.div 
+              className='mb-[1.5rem] md:text-right md:col-start-6 md:col-end-11 lg:col-start-5 overflow-hidden'>
+              <motion.h1 variants={item}
+                className='md:text-right overflow-hidden'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </motion.h1>
+            </motion.div>
+            <motion.div className='md:col-start-4 md:col-end-10 lg:col-start-6 overflow-hidden'>
+              <motion.p variants={item}
+                className='text-right md:text-left md:col-start-4 md:col-end-10 lg:col-start-6'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis, est id tincidunt mattis, nibh lorem finibus odio, at sagittis ante libero id erat. Ut ut lectus in nisi interdum dictum ac sed tortor. Mauris eget turpis ligula. In hac habitasse platea dictumst.
+              </motion.p>
+            </motion.div>
+          </motion.div>
 
           {/* Auxiliar nav menu & contact logos */}
-          <div className='hidden md:flex px-[2rem] pt-[3rem] justify-between'>
+          <motion.div
+            className='hidden md:flex px-[2rem] pt-[3rem] justify-between'>
             <nav>
-              <ul>
-                <li className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a href="#hero">Carrera de ingeniería de software</a></li>
-                <li className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a href="#equipo">Docentes</a></li>
-                <li className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a href="#semillero">Semillero Laboratorio Bigatic</a></li>
-                <li className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a href="#eventos">Eventos</a></li>
-                <li className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a href="#contacto">Contactanos</a></li>
-              </ul>
+              <motion.ul initial="hidden" animate="show" variants={container}>
+                <div className="overflow-hidden">
+                  <motion.li
+                    variants={item}
+                    onClick={() => handleScroll(heroRef)} className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'
+                  >
+                  <a>Carrera de ingeniería de software</a></motion.li>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.li
+                     variants={item}
+                    onClick={() => handleScroll(equipoRef)} className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'
+                  ><a>Docentes</a></motion.li>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.li 
+                   variants={item}
+                  onClick={() => handleScroll(semilleroRef)} className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a >Semillero Laboratorio Bigatic</a></motion.li>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.li
+                   variants={item}
+                  onClick={() => handleScroll(eventosRef)} className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a >Eventos</a></motion.li>
+                </div>
+                <div className="overflow-hidden">
+                  <motion.li 
+                   variants={item}
+                  onClick={() => handleScroll(contactoRef)} className='pb-[1rem] before:w-[1rem] before:h-[0.3rem] before:bg-black before:mr-[0.5rem] before:inline-block'><a>Contactanos</a></motion.li>
+                </div>
+              </motion.ul>
             </nav>
-            <div className='flex'>
-              <a className='mr-[1rem] self-end' href="https://www.instagram.com/ing.software.udes/"><img src="/instagram-logo.svg" alt="instagram-logo" /></a>
-              <a className='self-end' href="https://www.facebook.com/Ing.SoftwareUDES/?locale=es_LA"><img  src="/facebook-logo.svg" alt="facebook-logo"/></a>
-            </div>
-          </div>
-        </header>
+            <motion.div className='flex overflow-hidden'>
+              <a className='mr-[1rem] self-end' href="https://www.instagram.com/ing.software.udes/">
+                <motion.img variants={item} src="/instagram-logo.svg" alt="instagram-logo" />
+              </a>
+              <a className='self-end' href="https://www.facebook.com/Ing.SoftwareUDES/?locale=es_LA">
+                <motion.img variants={item} src="/facebook-logo.svg" alt="facebook-logo"/>
+              </a>
+            </motion.div>
+          </motion.div>
+        </motion.header>
         
         {/* padding wrapper */}
         <div className='mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
           {/* Nuestro Equipo */}
           <section id="equipo" ref={equipoRef}>
-            <h1 
+            <h1
               className='pb-[3rem]'
             >Nuestro Equipo</h1>
             <ProfileGraph/>

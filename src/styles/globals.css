@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   h1 {
     @apply text-[2rem] leading-[38.73px] font-black lg:text-[3rem] lg:leading-[58px]
   }

@@ -40,8 +40,8 @@ export default function Evento({ eventData }) {
           <Image
             className='object-cover'
             fill
-            src="/workshop.jpeg" 
-            alt="workshop image"  
+            src="/workshop.jpeg"
+            alt="workshop image"
           />
         </div>
       </div>
