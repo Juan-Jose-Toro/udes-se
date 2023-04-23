@@ -115,7 +115,7 @@ export default function Home() {
           <motion.section 
             initial="offscreen"
             whileInView="onscreen"
-            viewport={{ once: true, amount: 0.8 }}
+            viewport={{ once: true }}
             id="equipo" ref={equipoRef}>
             <div className='overflow-hidden mb-[3rem]'>
               <motion.h1
@@ -200,11 +200,17 @@ export default function Home() {
    </div>
 
     {/* Eventos */}
-    <div className='overflow-hidden mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
-      <motion.h1 variants={scroll} initial="offscreen" whileInView="onscreen" viewport={{ once: true }} id="eventos" ref={eventosRef} className=''>Eventos</motion.h1>
-    </div>
-    <motion.section variants={reveal} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
-      <Carousel/>
+    <motion.section
+      initial="offscreen"
+      whileInView="onscreen"
+      viewport={{ once: true }}
+    >
+      <div className='mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
+        <motion.h1 variants={reveal} initial="offscreen" whileInView="onscreen" viewport={{ once: true }} id="eventos" ref={eventosRef} className=''>Eventos</motion.h1>
+      </div>
+      <motion.section variants={reveal}>
+        <Carousel/>
+      </motion.section>
     </motion.section>
 
     {/* Footer / Contacto */}
