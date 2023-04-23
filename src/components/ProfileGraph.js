@@ -5,7 +5,9 @@ import { nanoid } from 'nanoid';
 import { useMediaQuery } from 'react-responsive';
 import { useDrawLine } from '../hooks/useDrawLine';
 import LineWithItem from './LineWithItem';
-import { BreakPointHooks, breakpointsTailwind } from '@react-hooks-library/core'
+import { BreakPointHooks, breakpointsTailwind } from '@react-hooks-library/core';
+import { motion } from 'framer-motion';
+import { item, container, scroll } from '../lib/animation';
 
 
 const { useGreater, useBetween, useSmaller } = BreakPointHooks(breakpointsTailwind)
@@ -50,7 +52,13 @@ export default function ProfileGraph() {
     )
   });
 
-  return (<div className='relative'>
+  return (
+    <motion.div 
+      className='relative' 
+      initial={{opacity: 0}} 
+      whileInView={{opacity: 1, transition: { duration: 1 }}}
+      viewport={{ once: true, amount: 0.8 }}
+    >
     {/* svg that contains the background that renders lines in between two div circles */}
     {arrayOfCoords.map((item) => 
       <LineWithItem 
@@ -65,8 +73,8 @@ export default function ProfileGraph() {
         height={item.height}
       />
     )}
-    <div ref={containerRef} className='grid grid-cols-2 md:grid-cols-4'>
+    <motion.div ref={containerRef} className='grid grid-cols-2 md:grid-cols-4'>
       {profiles}
-    </div>
-  </div>);
+    </motion.div>
+  </motion.div>);
 }

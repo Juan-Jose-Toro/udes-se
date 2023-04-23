@@ -5,7 +5,7 @@ import ProfileGraph from '@/components/ProfileGraph';
 import Capacitaciones from '@/components/Capacitaciones';
 import Carousel from '../components/Carousel';
 import { useInView } from '../hooks/useInView';
-import { container, item } from '../lib/animation';
+import { container, item, scroll, reveal } from '../lib/animation';
 import { motion } from 'framer-motion';
 import { nanoid } from 'nanoid';
 
@@ -32,10 +32,10 @@ export default function Home() {
     <div ref={pageContainer} className='mx-auto pt-[2rem]'>
       {/* Logo & Menu */}
       <motion.header 
-        variants={container}
+        variants={container} initial="hidden" animate="show"
         id="hero" ref={heroRef} className='flex justify-between pb-[3rem]'>
         <div className='overflow-hidden'>
-          <motion.img variants={item} initial="hidden" animate="show" className='pl-[2rem]' src="/sm-logo.svg" alt="Logo"/>
+          <motion.img variants={item} className='pl-[2rem]' src="/sm-logo.svg" alt="Logo"/>
         </div>
         {/* Burger menu black dot is positioned as a fixed 2rem */}
         <BurgerMenu activeSection={activeSection} arrRef={[heroRef, equipoRef, semilleroRef, eventosRef, contactoRef]}/>
@@ -44,7 +44,7 @@ export default function Home() {
       <main className=''>
         {/* Hero */}
         <motion.header
-          initial="hidden" animate="show" variants={container}
+          variants={container} initial="hidden" animate="show"
           className='pb-[12rem]'>
           <motion.div 
             className='max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem] mx-auto md:grid md:grid-cols-10'>
@@ -112,22 +112,39 @@ export default function Home() {
         {/* padding wrapper */}
         <div className='mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
           {/* Nuestro Equipo */}
-          <section id="equipo" ref={equipoRef}>
-            <h1
-              className='pb-[3rem]'
-            >Nuestro Equipo</h1>
+          <motion.section 
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.8 }}
+            id="equipo" ref={equipoRef}>
+            <div className='overflow-hidden mb-[3rem]'>
+              <motion.h1
+                variants={scroll}
+              >Nuestro Equipo</motion.h1>
+            </div>
             <ProfileGraph/>
-          </section>
+          </motion.section>
 
           {/* Semillero de Investigacion */}
-          <section id="semillero" ref={semilleroRef}>
-            <div className='lg:grid lg:grid-cols-10'>
-              <h1 className='pb-[1.5rem] lg:col-start-1 lg:col-end-4'>Semillero de Investigacion</h1>
-              <p className='pb-[2rem] lg:col-start-5 lg:col-end-11'>El semillero de Investigación <strong>BiGaTic</strong>, que se enfoca a la formación de estudiantes innovadores y desarrolladores de soluciones con enfoque en pensamiento sistémico, que aportan lógica de programación para llevar a un avance sustancial a la Universidad de Santander en el tema de las nuevas tecnologías de la información y la comunidad del siglo XXI.</p>
-            </div>
+          <section
+            id="semillero"
+            ref={semilleroRef}>
+            <motion.div
+              initial="offscreen"
+              whileInView="onscreen"
+              viewport={{ once: true, amount: 0.8 }}
+              className='lg:grid lg:grid-cols-10'>
+              <div className='mb-[1.5rem] lg:col-start-1 lg:col-end-5 overflow-y-hidden'>
+                <motion.h1 variants={scroll}>Semillero de Investigación</motion.h1>
+              </div>
+              <div className='mb-[2rem] lg:col-start-5 lg:col-end-11 overflow-hidden'>
+                <motion.p variants={scroll}>El semillero de Investigación <strong>BiGaTic</strong>, que se enfoca a la formación de estudiantes innovadores y desarrolladores de soluciones con enfoque en pensamiento sistémico, que aportan lógica de programación para llevar a un avance sustancial a la Universidad de Santander en el tema de las nuevas tecnologías de la información y la comunidad del siglo XXI.</motion.p>
+              </div>
+            </motion.div>
 
             {/* Wrapper of a project stage*/}
-            <div className='grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 pb-[2rem] gap-4'>
+            <motion.div variants={reveal} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}
+            className='grid grid-col-1 md:grid-cols-2 lg:grid-cols-4 pb-[2rem] gap-4'>
               {/* Teoria */}
               <div className='flex flex-col'>
                 <h3 className='pb-[1rem] text-center'>Teoria</h3>
@@ -137,7 +154,7 @@ export default function Home() {
                   <p className=''>Patrones de diseno</p>
                   <img className='mx-auto py-[2rem]' src="/mcv.svg" alt="model-control-view diagram" />
                 </div>
-              </div> 
+              </div>
               {/* Technologias */}
               <div className='flex flex-col'>
                 <h3 className='pb-[1rem] text-center'>Technologias</h3>
@@ -168,23 +185,27 @@ export default function Home() {
                   <h2 className='font-black pb-[10rem]'>Desarrollo de Videojuegos Orientado a Empresas</h2>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </section>
 
           {/* Capacitaciones Previas */}
-          <section>
-            <h1 className='pb-[2rem]'>Capacitaciones Previas</h1>
+          <motion.section initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
+            <div className='mb-[2rem] overflow-hidden'>
+              <motion.h1 variants={scroll}>Capacitaciones Previas</motion.h1>
+            </div>
             <Capacitaciones/>
-          </section>
+          </motion.section>
         </div>
       </main>
    </div>
 
     {/* Eventos */}
-    <h1 id="eventos" ref={eventosRef} className='px-[2rem] md:px-[4rem]'>Eventos</h1>
-    <section>
+    <div className='overflow-hidden mx-auto max-w-[20rem] md:max-w-[40rem] lg:max-w-[65rem]'>
+      <motion.h1 variants={scroll} initial="offscreen" whileInView="onscreen" viewport={{ once: true }} id="eventos" ref={eventosRef} className=''>Eventos</motion.h1>
+    </div>
+    <motion.section variants={reveal} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}>
       <Carousel/>
-    </section>
+    </motion.section>
 
     {/* Footer / Contacto */}
     <footer id="contacto" className='px-[2rem] bg-black rounded-t-[2rem]' ref={contactoRef}>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import Image from 'next/image';
+import { reveal } from '../lib/animation';
 
 export default function CapacitacionesPrevias() {
   const [isMenu, setIsMenu] = useState(true);
@@ -111,7 +112,9 @@ export default function CapacitacionesPrevias() {
   );
   
   return (
-    <div className='h-[32rem] overflow-hidden'>
+    <motion.div 
+      variants={reveal} initial="offscreen" whileInView="onscreen" viewport={{ once: true }}
+      className='h-[32rem] overflow-hidden'>
       <div className='lg:hidden'>
         <AnimatePresence initial={false} mode="wait">
           {isMenu ? menuTemplate : menuItemTemplate}
@@ -126,6 +129,6 @@ export default function CapacitacionesPrevias() {
           </div>
         {/* </AnimatePresence> */}
       </div>
-    </div>
+    </motion.div>
   );
 }

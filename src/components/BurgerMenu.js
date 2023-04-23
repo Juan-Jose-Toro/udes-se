@@ -44,16 +44,20 @@ export default function BurgerMenu(props) {
 
   const sections = ['Carrera de Ingenieria de Software','Docentes','Semillero Laboratorio Bigatic', 'Eventos', 'Contactanos'].map((section, i) => {
     return (
-    <motion.li
-      className='menu-item'
-      key={nanoid()}
-    >
-      <motion.a
-        className={(activeSection == i ? 'text-gray-400' : 'text-white')}
-        onClick={() => handleClick(i)}>
-        {section}
-      </motion.a>
-    </motion.li>
+      <motion.div className='overflow-hidden' key={nanoid()}>
+        <motion.li
+          key={nanoid()}
+          variants={item}
+          exit={{y: '100%'}}
+          className='menu-item'
+        >
+          <motion.a
+            className={(activeSection == i ? 'text-gray-400' : 'text-white')}
+            onClick={() => handleClick(i)}>
+            {section}
+          </motion.a>
+        </motion.li>
+      </motion.div>
     );
     });
 
@@ -81,8 +85,10 @@ export default function BurgerMenu(props) {
         key={nanoid()}
         >
           <motion.div className='h-[100svh] flex justify-center items-center'>
-            <motion.ul className='w-full'>
-              {sections}
+            <motion.ul 
+              variants={container} initial="hidden" animate="show"
+              className='w-full'>
+                {sections}
             </motion.ul>
           </motion.div>
         </motion.nav>
